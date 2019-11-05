@@ -259,7 +259,7 @@ class Template
 		foreach ($this->filters as $filter) {
 			if (is_array($filter)) {
 				// Unpack a callback saved as second argument
-				$context->addFilters(...$filter);
+				$context->addFilters(call_user_func_array($filter));
 			} else {
 				$context->addFilters($filter);
 			}

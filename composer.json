@@ -27,7 +27,7 @@
         }
     ],
     "require": {
-        "php": "<=5.5.9"
+        "php": "^5.5.9"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.6",

@@ -222,13 +222,13 @@ class Template
 	 * @throws \Liquid\Exception\MissingFilesystemException
 	 * @return Template
 	 */
-	public function parseFile($templatePath)
+	public function parseFile($templatePath, $kohanaFilePath = false)
 	{
 		if (!$this->fileSystem) {
 			throw new MissingFilesystemException("Could not load a template without an initialized file system");
 		}
 
-		return $this->parse($this->fileSystem->readTemplateFile($templatePath));
+		return $this->parse($this->fileSystem->readTemplateFile($templatePath, $kohanaFilePath));
 	}
 
 	/**

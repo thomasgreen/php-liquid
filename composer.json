@@ -1,12 +1,12 @@
 {
-    "name": "liquid/liquid",
+    "name": "thomasgreen/liquid",
     "type": "library",
     "description": "Liquid template engine for PHP",
     "keywords": [
         "liquid",
         "template"
     ],
-    "homepage": "https://github.com/kalimatas/php-liquid",
+    "homepage": "https://github.com/thomasgreen/php-liquid",
     "license": "MIT",
     "authors": [
         {
@@ -27,7 +27,7 @@
         }
     ],
     "require": {
-        "php": ">=7.0"
+        "php": "<=5.5.9"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.6",

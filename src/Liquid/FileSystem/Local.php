@@ -11,11 +11,13 @@
 
 namespace Liquid\FileSystem;
 
+use Kohana;
 use Liquid\Exception\NotFoundException;
 use Liquid\Exception\ParseException;
 use Liquid\FileSystem;
 use Liquid\Regexp;
 use Liquid\Liquid;
+use Vs\Amp\Component;
 
 /**
  * This implements an abstract file system which retrieves template files named in a manner similar to Rails partials,
@@ -77,10 +79,20 @@ class Local implements FileSystem
     public function fullPath($templatePath, $kohanaFilePath = false)
     {
 
+
+        $liquidPath = Kohana::find_file('views', 'liquid/'.$templatePath, false, 'liquid');
+
+        if(strpos($liquidPath,'//')){
+            $liquidPath = str_replace('//', '/', $liquidPath);
+        }
+        if ($liquidPath) {
+            return $liquidPath;
+        }
+
         if ($kohanaFilePath) {
             return $templatePath;
         }
-        
+
         if (empty($templatePath)) {
             throw new ParseException("Empty template name");
         }
@@ -101,7 +113,7 @@ class Local implements FileSystem
         }
 
         $fullPath = join(DIRECTORY_SEPARATOR, array($this->root, $templateDir, $templateFile));
-
+        
         $realFullPath = realpath($fullPath);
         if ($realFullPath === false) {
             throw new NotFoundException("File not found: $fullPath");

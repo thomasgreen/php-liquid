@@ -11,8 +11,9 @@
 
 namespace Liquid;
 
-use Liquid\Exception\CacheException;
-use Liquid\Exception\MissingFilesystemException;
+use  Liquid\Exception\CacheException;
+use  Liquid\Exception\MissingFilesystemException;
+use  Palette;
 
 /**
  * The Template class.
@@ -25,7 +26,7 @@ use Liquid\Exception\MissingFilesystemException;
  */
 class Template
 {
-	const CLASS_PREFIX = '\Liquid\Cache\\';
+	const CLASS_PREFIX = 'Vs\Amp\Liquid\Cache\\';
 
 	/**
 	 * @var Document The root of the node tree
@@ -222,13 +223,14 @@ class Template
 	 * @throws \Liquid\Exception\MissingFilesystemException
 	 * @return Template
 	 */
-	public function parseFile($templatePath, $kohanaFilePath = false)
+	public function parseFile($templatePath, $kohanaFilePath = false, $folder = 'components')
 	{
+        IncludePath::pushStack(basename($templatePath));
 		if (!$this->fileSystem) {
 			throw new MissingFilesystemException("Could not load a template without an initialized file system");
 		}
 
-		return $this->parse($this->fileSystem->readTemplateFile($templatePath, $kohanaFilePath));
+		return $this->parse($this->fileSystem->readTemplateFile($templatePath, $kohanaFilePath, $folder));
 	}
 
 	/**
@@ -264,7 +266,8 @@ class Template
 				$context->addFilters($filter);
 			}
 		}
-
-		return $this->root->render($context);
-	}
+		$return = $this->root->render($context);
+        IncludePath::popStack();
+        return $return;
+    }
 }

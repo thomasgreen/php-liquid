@@ -11,8 +11,8 @@
 
 namespace Liquid\Cache;
 
-use Liquid\Cache;
-use Liquid\Exception\NotFoundException;
+use  Liquid\Cache;
+use  Liquid\Exception\NotFoundException;
 
 /**
  * Implements cache stored in files.

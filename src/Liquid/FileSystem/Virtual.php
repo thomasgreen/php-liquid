@@ -11,8 +11,8 @@
 
 namespace Liquid\FileSystem;
 
-use Liquid\Exception\FilesystemException;
-use Liquid\FileSystem;
+use  Liquid\Exception\FilesystemException;
+use  Liquid\FileSystem;
 
 /**
  * This implements a virtual file system with actual code used to find files injected from outside thus achieving inversion of control.

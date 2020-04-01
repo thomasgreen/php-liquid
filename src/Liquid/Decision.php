@@ -11,7 +11,7 @@
 
 namespace Liquid;
 
-use Liquid\Exception\RenderException;
+use  Liquid\Exception\RenderException;
 
 /**
  * Base class for blocks that make logical decisions.

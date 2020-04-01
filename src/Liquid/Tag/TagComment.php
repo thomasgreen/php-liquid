@@ -11,8 +11,8 @@
 
 namespace Liquid\Tag;
 
-use Liquid\AbstractBlock;
-use Liquid\Context;
+use  Liquid\AbstractBlock;
+use  Liquid\Context;
 
 /**
  * Creates a comment; everything inside will be ignored

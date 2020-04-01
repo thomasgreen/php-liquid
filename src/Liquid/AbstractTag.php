@@ -70,6 +70,81 @@ abstract class AbstractTag
 	 */
 	abstract public function render(Context $context);
 
+    /**
+     * Render attributes from a markup string. If the markup looks like "test foo:bar, foo2:=bar2" this method will
+     * return ['foo' => 'bar', 'foo2' => '*rendered_liquid_variable*'] (everything after the first non-word character)
+     *
+     * @param string  $markup  Markup string
+     * @param Context $context Context object
+     */
+    protected function renderAttributes($markup, Context $context)
+    {
+        $this->attributes = [];
+
+        $attributeRegexp = new Regexp(Liquid::get('TAG_ATTRIBUTES'));
+
+        $matches = $attributeRegexp->scan($markup);
+
+        foreach ($matches as $match) {
+            $this->attributes[$match[0]] = $this->renderAttributeValue($match[1], $context);
+        }
+    }
+
+    /**
+     * Render an attribute value. Values are allowed to be enclosed in quote marks or start with an "=" sign, in which
+     * case they will be treated as a Liquid variable. Can also handle ternary statements.
+     * @param string  $value   Attribute value to parse
+     * @param Context $context Context object
+     * @return string
+     */
+    protected function renderAttributeValue($value, Context $context)
+    {
+        $renderFragment = new Regexp(Liquid::get('RENDER_FRAGMENT'));
+        $ternaryMatch = new Regexp(Liquid::get('TERNARY'));
+
+        if ($renderFragment->match($value)) {
+            $value = $renderFragment->matches[1];
+            if ($ternaryMatch->match($value)) {
+                // Regex check for an attribute that looks like a ternary statement.
+                $value = self::renderAttributeValue($ternaryMatch->matches[1], $context) .
+                    ' ? ' .
+                    self::renderAttributeValue($ternaryMatch->matches[2], $context) .
+                    ' : ' .
+                    self::renderAttributeValue($ternaryMatch->matches[3], $context);
+            }
+        } else {
+            $value = $context->get($value);
+        }
+
+        return $value;
+    }
+
+    /**
+     * Return the first attribute from a markup list. If the markup looks like "'test' foo:'bar', foo2:bar2" this
+     * method will return "test"
+     * If the markup looks like "test foo:'bar', foo2:bar2" this
+     * method will return the contents of the liquid "test" variable.
+     *
+     * @param string  $markup  Markup string
+     * @param Context $context Context object
+     * @return string First attribute from the markup
+     */
+    protected function getFirstAttribute($markup, Context $context)
+    {
+        $attributePattern = new Regexp(Liquid::get('FIRST_ATTRIBUTE'));
+
+        if (!$attributePattern->match($markup)) {
+            return '';
+        }
+
+        if (empty($attributePattern->matches[1])) {
+            // First attribute was not enclosed in 'quotes', so we interpret it as a Liquid variable
+            $attributePattern->matches[2] = $context->get($attributePattern->matches[2]);
+        }
+
+        return !empty($attributePattern->matches[2]) ? $attributePattern->matches[2] : '';
+    }
+
 	/**
 	 * Extracts tag attributes from a markup string.
 	 *

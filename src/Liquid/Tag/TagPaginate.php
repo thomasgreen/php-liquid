@@ -11,13 +11,13 @@
 
 namespace Liquid\Tag;
 
-use Liquid\AbstractBlock;
-use Liquid\Exception\ParseException;
-use Liquid\Liquid;
-use Liquid\Context;
-use Liquid\FileSystem;
-use Liquid\Regexp;
-use Liquid\Exception\RenderException;
+use  Liquid\AbstractBlock;
+use  Liquid\Exception\ParseException;
+use  Liquid\Liquid;
+use  Liquid\Context;
+use  Liquid\FileSystem;
+use  Liquid\Regexp;
+use  Liquid\Exception\RenderException;
 
 /**
  * The paginate tag works in conjunction with the for tag to split content into numerous pages.

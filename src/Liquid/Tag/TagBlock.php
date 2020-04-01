@@ -11,10 +11,10 @@
 
 namespace Liquid\Tag;
 
-use Liquid\AbstractBlock;
-use Liquid\Exception\ParseException;
-use Liquid\FileSystem;
-use Liquid\Regexp;
+use  Liquid\AbstractBlock;
+use  Liquid\Exception\ParseException;
+use  Liquid\FileSystem;
+use  Liquid\Regexp;
 
 /**
  * Marks a section of a template as being reusable.

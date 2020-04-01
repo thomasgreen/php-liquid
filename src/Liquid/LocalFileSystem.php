@@ -11,9 +11,11 @@
 
 namespace Liquid;
 
+use  Liquid\FileSystem\Local;
+
 /**
  * @deprecated Left for backward compatibility reasons. Use \Liquid\FileSystem\Local instead.
  */
-class LocalFileSystem extends \Liquid\FileSystem\Local
+class LocalFileSystem extends Local
 {
 }

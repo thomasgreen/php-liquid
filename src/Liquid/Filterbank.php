@@ -11,7 +11,7 @@
 
 namespace Liquid;
 
-use Liquid\Exception\WrongArgumentException;
+use  Liquid\Exception\WrongArgumentException;
 
 /**
  * The filter bank is where all registered filters are stored, and where filter invocation is handled
@@ -49,8 +49,8 @@ class Filterbank
 	{
 		$this->context = $context;
 
-		$this->addFilter(\Liquid\StandardFilters::class);
-		$this->addFilter(\Liquid\CustomFilters::class);
+		$this->addFilter(\Vs\Amp\Liquid\StandardFilters::class);
+		$this->addFilter(\Vs\Amp\Liquid\CustomFilters::class);
 	}
 
 	/**

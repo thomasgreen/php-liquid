@@ -11,8 +11,8 @@
 
 namespace Liquid\Cache;
 
-use Liquid\Cache;
-use Liquid\LiquidException;
+use  Liquid\Cache;
+use  Liquid\LiquidException;
 
 /**
  * Implements cache stored in Apc.

@@ -11,13 +11,13 @@
 
 namespace Liquid\Tag;
 
-use Liquid\AbstractBlock;
-use Liquid\Exception\ParseException;
-use Liquid\Exception\RenderException;
-use Liquid\Liquid;
-use Liquid\Context;
-use Liquid\FileSystem;
-use Liquid\Regexp;
+use  Liquid\AbstractBlock;
+use  Liquid\Exception\ParseException;
+use  Liquid\Exception\RenderException;
+use  Liquid\Liquid;
+use  Liquid\Context;
+use  Liquid\FileSystem;
+use  Liquid\Regexp;
 
 /**
  * Quickly create a table from a collection

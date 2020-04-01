@@ -11,12 +11,12 @@
 
 namespace Liquid\Tag;
 
-use Liquid\AbstractBlock;
-use Liquid\Exception\ParseException;
-use Liquid\Liquid;
-use Liquid\Context;
-use Liquid\FileSystem;
-use Liquid\Regexp;
+use  Liquid\AbstractBlock;
+use  Liquid\Exception\ParseException;
+use  Liquid\Liquid;
+use  Liquid\Context;
+use  Liquid\FileSystem;
+use  Liquid\Regexp;
 
 /**
  * Loops over an array, assigning the current value to a given variable

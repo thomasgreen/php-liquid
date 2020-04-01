@@ -11,8 +11,8 @@
 
 namespace Liquid\Tag;
 
-use Liquid\AbstractTag;
-use Liquid\Context;
+use  Liquid\AbstractTag;
+use  Liquid\Context;
 
 /**
  * Skips the current iteration of the current loop

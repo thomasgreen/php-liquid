@@ -11,7 +11,7 @@
 
 namespace Liquid\Exception;
 
-use Liquid\Exception\FilesystemException;
+use  Liquid\Exception\FilesystemException;
 
 /**
  * NotFoundException class.

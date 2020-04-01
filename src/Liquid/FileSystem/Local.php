@@ -12,12 +12,13 @@
 namespace Liquid\FileSystem;
 
 use Kohana;
-use Liquid\Exception\NotFoundException;
-use Liquid\Exception\ParseException;
-use Liquid\FileSystem;
-use Liquid\Regexp;
-use Liquid\Liquid;
-use Vs\Amp\Component;
+use  Liquid\Exception\NotFoundException;
+use  Liquid\Exception\ParseException;
+use  Liquid\FileSystem;
+use  Liquid\IncludePath;
+use  Liquid\Regexp;
+use  Liquid\Liquid;
+use  Component;
 
 /**
  * This implements an abstract file system which retrieves template files named in a manner similar to Rails partials,
@@ -60,11 +61,16 @@ class Local implements FileSystem
      *
      * @param string $templatePath
      *
+     * @param bool   $kohanaFilePath
+     * @param string $folder
+     *
      * @return string template content
+     * @throws \Liquid\Exception\NotFoundException
+     * @throws \Liquid\Exception\ParseException
      */
-    public function readTemplateFile($templatePath, $kohanaFilePath = false)
+    public function readTemplateFile($templatePath, $kohanaFilePath = false, $folder = 'components')
     {
-        return file_get_contents($this->fullPath($templatePath, $kohanaFilePath));
+        return file_get_contents($this->fullPath($templatePath, $kohanaFilePath, $folder));
     }
 
     /**
@@ -76,11 +82,9 @@ class Local implements FileSystem
      * @throws \Liquid\Exception\NotFoundException
      * @throws \Liquid\Exception\ParseException
      */
-    public function fullPath($templatePath, $kohanaFilePath = false)
+    public function fullPath($templatePath, $kohanaFilePath = false, $folder = 'components')
     {
-
-
-        $liquidPath = Kohana::find_file('views', 'liquid/'.$templatePath, false, 'liquid');
+        $liquidPath = Kohana::find_file('views', $folder.'/'.$templatePath, false, 'liquid');
 
         if(strpos($liquidPath,'//')){
             $liquidPath = str_replace('//', '/', $liquidPath);
@@ -94,12 +98,14 @@ class Local implements FileSystem
         }
 
         if (empty($templatePath)) {
+            echo __FILE__.':line '.__LINE__.\Kohana::debug(IncludePath::$stack);
+            die;
             throw new ParseException("Empty template name");
         }
 
         $nameRegex = Liquid::get('INCLUDE_ALLOW_EXT')
-          ? new Regexp('/^[^.\/][a-zA-Z0-9_\.\/-]+$/')
-          : new Regexp('/^[^.\/][a-zA-Z0-9_\/-]+$/');
+            ? new Regexp('/^[^.\/][a-zA-Z0-9_\.\/-]+$/')
+            : new Regexp('/^[^.\/][a-zA-Z0-9_\/-]+$/');
 
         if (!$nameRegex->match($templatePath)) {
             throw new ParseException("Illegal template name '$templatePath'");
@@ -113,7 +119,7 @@ class Local implements FileSystem
         }
 
         $fullPath = join(DIRECTORY_SEPARATOR, array($this->root, $templateDir, $templateFile));
-        
+
         $realFullPath = realpath($fullPath);
         if ($realFullPath === false) {
             throw new NotFoundException("File not found: $fullPath");

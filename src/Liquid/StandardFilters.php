@@ -11,14 +11,15 @@
 
 namespace Liquid;
 
-use Liquid\Exception\RenderException;
+use Carbon\Carbon;
+use  Liquid\Exception\RenderException;
 
 /**
  * A selection of standard filters.
  */
 class StandardFilters
 {
-	
+
 	/**
 	 * Add one string to another
 	 *
@@ -31,7 +32,7 @@ class StandardFilters
 	{
 		return $input . $string;
 	}
-	
+
 
 	/**
 	 * Capitalize words in the input sentence
@@ -46,7 +47,7 @@ class StandardFilters
 			return $matches[1] . ucfirst($matches[2]);
 		}, ucwords($input));
 	}
-	
+
 
 	/**
 	 * @param mixed $input number
@@ -57,7 +58,7 @@ class StandardFilters
 	{
 		return (int) ceil((float)$input);
 	}
-	
+
 
 	/**
 	 * Formats a date using strftime
@@ -77,10 +78,11 @@ class StandardFilters
 			return date($format, $input);
 		}
 
-		return strftime($format, $input);
+		$date = Carbon::createFromTimestamp($input);
+        return $date->format($format);
 	}
-	
-	
+
+
 	/**
 	 * Default
 	 *
@@ -94,8 +96,8 @@ class StandardFilters
 		$isBlank = $input == '' || $input === false || $input === null;
 		return $isBlank ? $default_value : $input;
 	}
-	
-	
+
+
 	/**
 	 * division
 	 *
@@ -109,7 +111,7 @@ class StandardFilters
 		return (float)$input / (float)$operand;
 	}
 
-	
+
 	/**
 	 * Convert an input to lowercase
 	 *
@@ -121,8 +123,8 @@ class StandardFilters
 	{
 		return is_string($input) ? strtolower($input) : $input;
 	}
-	
-	
+
+
 	/**
 	 * Pseudo-filter: negates auto-added escape filter
 	 *
@@ -187,8 +189,8 @@ class StandardFilters
 		}
 		return is_array($input) ? reset($input) : $input;
 	}
-	
-	
+
+
 	/**
 	 * @param mixed $input number
 	 *
@@ -198,8 +200,8 @@ class StandardFilters
 	{
 		return (int) floor((float)$input);
 	}
-	
-	
+
+
 	/**
 	 * Joins elements of an array with a given character between them
 	 *
@@ -222,8 +224,8 @@ class StandardFilters
 		}
 		return is_array($input) ? implode($glue, $input) : $input;
 	}
-	
-	
+
+
 	/**
 	 * Returns the last element of an array
 	 *
@@ -242,7 +244,7 @@ class StandardFilters
 		}
 		return is_array($input) ? end($input) : $input;
 	}
-	
+
 
 	/**
 	 * @param string $input
@@ -253,8 +255,8 @@ class StandardFilters
 	{
 		return ltrim($input);
 	}
-	
-	
+
+
 	/**
 	 * Map/collect on a given property
 	 *
@@ -280,7 +282,7 @@ class StandardFilters
 			return null;
 		}, $input);
 	}
-	
+
 
 	/**
 	 * subtraction
@@ -294,8 +296,8 @@ class StandardFilters
 	{
 		return (float)$input - (float)$operand;
 	}
-	
-	
+
+
 	/**
 	 * modulo
 	 *
@@ -308,8 +310,8 @@ class StandardFilters
 	{
 		return fmod((float)$input, (float)$operand);
 	}
-	
-	
+
+
 	/**
 	 * Replace each newline (\n) with html break
 	 *
@@ -321,7 +323,7 @@ class StandardFilters
 	{
 		return is_string($input) ? str_replace("\n", "<br />\n", $input) : $input;
 	}
-		
+
 
 	/**
 	 * addition
@@ -335,7 +337,7 @@ class StandardFilters
 	{
 		return (float)$input + (float)$operand;
 	}
-	
+
 
 	/**
 	 * Prepend a string to another
@@ -349,7 +351,7 @@ class StandardFilters
 	{
 		return $string . $input;
 	}
-	
+
 
 	/**
 	 * Remove a substring
@@ -381,7 +383,7 @@ class StandardFilters
 
 		return $input;
 	}
-	
+
 
 	/**
 	 * Replace occurrences of a string with another
@@ -415,8 +417,8 @@ class StandardFilters
 
 		return $input;
 	}
-	
-	
+
+
 	/**
 	 * Reverse the elements of an array
 	 *
@@ -431,8 +433,8 @@ class StandardFilters
 		}
 		return array_reverse($input);
 	}
-	
-	
+
+
 	/**
 	 * Round a number
 	 *
@@ -445,8 +447,8 @@ class StandardFilters
 	{
 		return round((float)$input, (int)$n);
 	}
-	
-	
+
+
 	/**
 	 * @param string $input
 	 *
@@ -457,7 +459,7 @@ class StandardFilters
 		return rtrim($input);
 	}
 
-	
+
 	/**
 	 * Return the size of an array or of an string
 	 *
@@ -489,7 +491,7 @@ class StandardFilters
 		// only plain values and stringable objects left at this point
 		return strlen($input);
 	}
-	
+
 
 	/**
 	 * @param array|\Iterator|string $input
@@ -513,8 +515,8 @@ class StandardFilters
 
 		return $input;
 	}
-	
-	
+
+
 	/**
 	 * Sort the elements of an array
 	 *
@@ -581,8 +583,8 @@ class StandardFilters
 	{
 		return trim($input);
 	}
-	
-	
+
+
 	/**
 	 * Removes html tags from text
 	 *
@@ -594,7 +596,7 @@ class StandardFilters
 	{
 		return is_string($input) ? strip_tags($input) : $input;
 	}
-	
+
 
 	/**
 	 * Strip all newlines (\n, \r) from string
@@ -609,7 +611,7 @@ class StandardFilters
 			"\n", "\r"
 		), '', $input) : $input;
 	}
-	
+
 
 	/**
 	 * multiplication
@@ -623,7 +625,7 @@ class StandardFilters
 	{
 		return (float)$input * (float)$operand;
 	}
-	
+
 
 	/**
 	 * Truncate a string down to x characters
@@ -667,7 +669,7 @@ class StandardFilters
 
 		return $input;
 	}
-	
+
 
 	/**
 	 * Remove duplicate elements from an array

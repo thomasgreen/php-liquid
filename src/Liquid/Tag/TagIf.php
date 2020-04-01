@@ -11,12 +11,12 @@
 
 namespace Liquid\Tag;
 
-use Liquid\Decision;
-use Liquid\Context;
-use Liquid\Exception\ParseException;
-use Liquid\Liquid;
-use Liquid\FileSystem;
-use Liquid\Regexp;
+use  Liquid\Decision;
+use  Liquid\Context;
+use  Liquid\Exception\ParseException;
+use  Liquid\Liquid;
+use  Liquid\FileSystem;
+use  Liquid\Regexp;
 
 /**
  * An if statement
@@ -69,7 +69,7 @@ class TagIf extends Decision
 	 */
 	public function unknownTag($tag, $params, array $tokens)
 	{
-		if ($tag == 'else' || $tag == 'elsif') {
+		if ($tag == 'else' || $tag == 'elseif') {
 			// Update reference to nodelistHolder for this block
 			$this->nodelist = & $this->nodelistHolders[count($this->blocks) + 1];
 			$this->nodelistHolders[count($this->blocks) + 1] = array();
@@ -90,7 +90,6 @@ class TagIf extends Decision
 	 */
 	public function render(Context $context)
 	{
-		$context->push();
 
 		$logicalRegex = new Regexp('/\s+(and|or)\s+/');
 		$conditionalRegex = new Regexp('/(' . Liquid::get('QUOTED_FRAGMENT') . ')\s*([=!<>a-z_]+)?\s*(' . Liquid::get('QUOTED_FRAGMENT') . ')?/');
@@ -103,7 +102,7 @@ class TagIf extends Decision
 				break;
 			}
 
-			if ($block[0] == 'if' || $block[0] == 'elsif') {
+			if ($block[0] == 'if' || $block[0] == 'elseif') {
 				// Extract logical operators
 				$logicalRegex->matchAll($block[1]);
 
@@ -154,8 +153,6 @@ class TagIf extends Decision
 				}
 			}
 		}
-
-		$context->pop();
 
 		return $result;
 	}

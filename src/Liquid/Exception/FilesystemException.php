@@ -11,7 +11,7 @@
 
 namespace Liquid\Exception;
 
-use Liquid\LiquidException;
+use  Liquid\LiquidException;
 
 /**
  * FilesystemException class.

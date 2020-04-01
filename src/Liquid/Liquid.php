@@ -56,16 +56,16 @@ class Liquid
 		'WHITESPACE_CONTROL' => '-',
 
 		// Tag start.
-		'TAG_START' => '{%',
+		'TAG_START' => '<%',
 
 		// Tag end.
-		'TAG_END' => '%}',
+		'TAG_END' => '%>',
 
 		// Variable start.
-		'VARIABLE_START' => '{{',
+		'VARIABLE_START' => '<%=',
 
 		// Variable end.
-		'VARIABLE_END' => '}}',
+		'VARIABLE_END' => '%>',
 
 		// Variable name.
 		'VARIABLE_NAME' => '[a-zA-Z_][a-zA-Z_0-9.-]*',
@@ -107,9 +107,15 @@ class Liquid
 				case 'QUOTED_FRAGMENT':
 					return self::$config['QUOTED_STRING'] . '|(?:[^\s,\|\'"]|' . self::$config['QUOTED_STRING'] . ')+';
 				case 'TAG_ATTRIBUTES':
-					return '/(\w+)\s*\:\s*(' . self::get('QUOTED_FRAGMENT') . ')/';
+					return '/(\[?[a-zA-Z0-9_-]*\]?)\s*\:\s*(' . self::get('QUOTED_FRAGMENT') . ')/';
 				case 'TOKENIZATION_REGEXP':
-					return '/(' . self::$config['TAG_START'] . '.*?' . self::$config['TAG_END'] . '|' . self::$config['VARIABLE_START'] . '.*?' . self::$config['VARIABLE_END'] . ')/';
+					return '/(' . self::$config['TAG_START'] . '.*?' . self::$config['TAG_END'] . '|' . self::$config['VARIABLE_START'] . '.*?' . self::$config['VARIABLE_END'] . ')/s';
+        case 'FIRST_ATTRIBUTE':
+          return '/^(["\'])?([\w\.\/\-]*)/';
+        case 'RENDER_FRAGMENT':
+          return "/^['\"](.*)['\"]/";
+        case 'TERNARY':
+            return '/^(' . self::get('QUOTED_FRAGMENT') . ')\s*\?\s*(' . self::get('QUOTED_FRAGMENT') . ')\s*\:\s*(' . self::get('QUOTED_FRAGMENT') . ')$/';
 				default:
 					return null;
 			}

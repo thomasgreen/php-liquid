@@ -11,12 +11,12 @@
 
 namespace Liquid\Tag;
 
-use Liquid\Decision;
-use Liquid\Context;
-use Liquid\Exception\ParseException;
-use Liquid\Liquid;
-use Liquid\FileSystem;
-use Liquid\Regexp;
+use  Liquid\Decision;
+use  Liquid\Context;
+use  Liquid\Exception\ParseException;
+use  Liquid\Liquid;
+use  Liquid\FileSystem;
+use  Liquid\Regexp;
 
 /**
  * A switch statement
@@ -154,16 +154,12 @@ class TagCase extends Decision
 			if ($this->equalVariables($this->left, $right, $context)) {
 				$runElseBlock = false;
 
-				$context->push();
 				$output .= $this->renderAll($nodelist, $context);
-				$context->pop();
 			}
 		}
 
 		if ($runElseBlock) {
-			$context->push();
 			$output .= $this->renderAll($this->elseNodelist, $context);
-			$context->pop();
 		}
 
 		return $output;

@@ -11,15 +11,15 @@
 
 namespace Liquid\Tag;
 
-use Liquid\AbstractTag;
-use Liquid\Document;
-use Liquid\Exception\MissingFilesystemException;
-use Liquid\Exception\ParseException;
-use Liquid\Liquid;
-use Liquid\Context;
-use Liquid\FileSystem;
-use Liquid\Regexp;
-use Liquid\Template;
+use  Liquid\AbstractTag;
+use  Liquid\Document;
+use  Liquid\Exception\MissingFilesystemException;
+use  Liquid\Exception\ParseException;
+use  Liquid\Liquid;
+use  Liquid\Context;
+use  Liquid\FileSystem;
+use  Liquid\Regexp;
+use  Liquid\Template;
 
 /**
  * Extends a template by another one.

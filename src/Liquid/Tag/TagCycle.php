@@ -11,13 +11,13 @@
 
 namespace Liquid\Tag;
 
-use Liquid\AbstractTag;
-use Liquid\Exception\ParseException;
-use Liquid\Liquid;
-use Liquid\Context;
-use Liquid\Regexp;
-use Liquid\Variable;
-use Liquid\FileSystem;
+use  Liquid\AbstractTag;
+use  Liquid\Exception\ParseException;
+use  Liquid\Liquid;
+use  Liquid\Context;
+use  Liquid\Regexp;
+use  Liquid\Variable;
+use  Liquid\FileSystem;
 
 /**
  * Cycles between a list of values; calls to the tag will return each value in turn

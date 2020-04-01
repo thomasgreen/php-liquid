@@ -11,9 +11,9 @@
 
 namespace Liquid\Tag;
 
-use Liquid\AbstractBlock;
-use Liquid\Context;
-use Liquid\FileSystem;
+use  Liquid\AbstractBlock;
+use  Liquid\Context;
+use  Liquid\FileSystem;
 
 /**
  * Quickly create a table from a collection

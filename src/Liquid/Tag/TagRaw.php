@@ -11,9 +11,9 @@
 
 namespace Liquid\Tag;
 
-use Liquid\Liquid;
-use Liquid\AbstractBlock;
-use Liquid\Regexp;
+use  Liquid\Liquid;
+use  Liquid\AbstractBlock;
+use  Liquid\Regexp;
 
 /**
  * Allows output of Liquid code on a page without being parsed.

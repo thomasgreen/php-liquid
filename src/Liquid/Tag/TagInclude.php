@@ -11,16 +11,17 @@
 
 namespace Liquid\Tag;
 
-use Liquid\AbstractTag;
-use Liquid\Document;
-use Liquid\Context;
-use Liquid\Exception\MissingFilesystemException;
-use Liquid\Exception\ParseException;
-use Liquid\Liquid;
-use Liquid\LiquidException;
-use Liquid\FileSystem;
-use Liquid\Regexp;
-use Liquid\Template;
+use  Liquid\AbstractTag;
+use  Liquid\Document;
+use  Liquid\Context;
+use  Liquid\Exception\MissingFilesystemException;
+use  Liquid\Exception\ParseException;
+use  Liquid\IncludePath;
+use  Liquid\Liquid;
+use  Liquid\LiquidException;
+use  Liquid\FileSystem;
+use  Liquid\Regexp;
+use  Liquid\Template;
 
 /**
  * Includes another, partial, template
@@ -104,7 +105,7 @@ class TagInclude extends AbstractTag
 		$this->extractAttributes($markup);
 
 		parent::__construct($markup, $tokens, $fileSystem);
-	}
+    }
 
 	/**
 	 * Parses the tokens

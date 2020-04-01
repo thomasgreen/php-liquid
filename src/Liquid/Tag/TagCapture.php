@@ -11,11 +11,11 @@
 
 namespace Liquid\Tag;
 
-use Liquid\AbstractBlock;
-use Liquid\Context;
-use Liquid\Exception\ParseException;
-use Liquid\FileSystem;
-use Liquid\Regexp;
+use  Liquid\AbstractBlock;
+use  Liquid\Context;
+use  Liquid\Exception\ParseException;
+use  Liquid\FileSystem;
+use  Liquid\Regexp;
 
 /**
  * Captures the output inside a block and assigns it to a variable

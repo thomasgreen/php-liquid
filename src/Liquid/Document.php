@@ -11,9 +11,9 @@
 
 namespace Liquid;
 
-use Liquid\Tag\TagInclude;
-use Liquid\Tag\TagExtends;
-use Liquid\Tag\TagBlock;
+use  Liquid\Tag\TagInclude;
+use  Liquid\Tag\TagExtends;
+use  Liquid\Tag\TagBlock;
 
 /**
  * This class represents the entire template document.
